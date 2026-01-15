@@ -1,55 +1,67 @@
+<?php
+session_start();
+
+if (
+    !isset($_SESSION['personne']) ||
+    !isset($_SESSION['personne']['role']) ||
+    $_SESSION['personne']['role'] !== 'responsable'
+) {
+    header('Location: ../index.php');
+    exit;
+}
+require_once __DIR__.'/../../controller/getTypeMaterielController.php';
+
+require_once __DIR__.'/../../controller/getMarquesController.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Responsable</title>
+<title>Dashboard responsable</title>
 <link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
-    <h2>Parc Info</h2>
+    
     <ul>
-        <li><a href="./index.php" class="active">🏠 Home</a></li>
-        <li><a href="./newMateriel.php">➕ Ajouter matériel</a></li>
-        <li><a href="./materiels.php">💻 Matériels</a></li>
-        <li><a href="./pannes.php">⚠️ Pannes</a></li>
-        <li><a href="./interventions.php">🛠️ Interventions</a></li>
-        <li><a href="../logout.php" class="logout">🚪 Déconnexion</a></li>
+        <li style="background-color: aliceblue;"><a href=""><img src="../images/logo-removebg-preview.png" width="100%"></a></li>
+        <li><a href="./index.php">Accueil</a></li>
+        <li><a href="./newMateriel.php" class="active"> Ajouter Materiel</a></li>
+        <li><a href="./materiels.php"> Materiels</a></li>
+        <li><a href="./interventions.php">gérer les interventions</a></li>
+        <li><a href="./panne.php">Déclarer une panne</a></li>
+        <li><a href="../../controller/logoutController.php" class="logout">🚪 Déconnexion</a></li>
     </ul>
 </div>
-
-<!-- CONTENT -->
 <div class="main-content">
-    <h1>Bienvenue Responsable 👋</h1>
-
-    <div class="cards">
-        <div class="card">
-            <h3>Matériels</h3>
-            <p>Gérer les matériels</p>
-            <a href="materiels.php">Accéder</a>
-        </div>
-
-        <div class="card">
-            <h3>Pannes</h3>
-            <p>Suivi des pannes</p>
-            <a href="pannes.php">Accéder</a>
-        </div>
-
-        <div class="card">
-            <h3>Interventions</h3>
-            <p>Gestion des interventions</p>
-            <a href="interventions.php">Accéder</a>
-        </div>
-
-        <div class="card">
-            <h3>Utilisateurs</h3>
-            <p>Employés & chefs</p>
-            <a href="personnes.php">Accéder</a>
-        </div>
-    </div>
+    <h2> Bonjour <?php echo $_SESSION['personne']['prenom'] .' '. $_SESSION['personne']['nom'] ?> </h2>
+    <br><br>
+    <form method="post" action="../../controller/NewMaterielController.php">
+        <label for="numSerie">Numéro Série:</label>
+        <input type="text" name="numSerie" id="numSerie"><br><br>
+        <label for="typeM">type materiel :</label>
+        <select id="typeM" name="typeM">
+            <?php foreach ($types as $type): ?>
+                <option value="<?php echo $type['idTypeMateriel']; ?>"><?php echo $type['libelleTypeMateriel']; ?></option>
+            <?php endforeach; ?>
+        </select> <br><br>
+        <label for="marque">Marque :</label>
+        <select id="marque" name="marque">
+            <?php foreach ($marques as $marque): ?>
+                <option value="<?php echo $marque['idMarque']; ?>"><?php echo $marque['libelleMarque']; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <br><br>
+        <label for="dateAchat">date Achat:</label>
+        <input type="date" name="dateAchat" id="dateAchat"><br><br>
+        <label for="prixAchat">Prix:</label>
+        <input type="text" name="prixAchat" id="prixAchat"><br><br>
+        <label for="caracteristique">caracteristique:</label>
+        <input type="text" name="caracteristique" id="caracteristique"><br><br>
+        <button type="submit" name="ajouterMateriel">Ajouter</button>
+    </form>
 </div>
 
 </body>
