@@ -1,10 +1,19 @@
+
 <?php
 session_start();
-if (isset($_SESSION["email"])){
-    header("Location: list.php");
-    exit;}
+if (isset($_SESSION["personne"])){
+    switch($_SESSION['personne']['role']){
+        case 'responsable':
+            header('Location: ./responsable/index.php');
+            exit;
+        case 'chefDepartement':
+            header('Location: ./chefDepartement/index.php');
+            exit;
+        case 'employe':
+            header('Location: ./employe/index.php');
+            exit;
+    }}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +30,8 @@ if (isset($_SESSION["email"])){
             <form method="post" action="../controller/loginController.php">
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="pwd" placeholder="Mot de passe">
+                <label for="remember"> remember me </label>
+                <input type="checkbox" name="remember" id="remember">
                 <button type="submit" name="conn">Se connecter</button>
             </form>
         </div>
