@@ -9,13 +9,14 @@ if (
     header('Location: ../index.php');
     exit;
 }
+require_once __DIR__.'/../../controller/getMaterielsController.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Dashboard Responsable</title>
-<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="/todo-list/backend/view/responsable/dashboard.css">
 </head>
 
 <body>
@@ -35,9 +36,32 @@ if (
 <div class="main-content">
     <h2> Bonjour <?php echo $_SESSION['personne']['prenom'] .' '. $_SESSION['personne']['nom'] ?> </h2>
     <br><br>
-    <div>
-        <h1>materiel bien ajouté!</h1>
-    </div>
+    <h3>les materiels existent dans l'agence</h3><br>
+    <table border="1">
+        <tr>
+            <th>numéro Série</th>
+            <th>type</th>
+            <th>marque</th>
+            <th>date Achat</th>
+            <th>prix d'Achat</th>
+            <th>caracteristique</th>
+            <th>location</th>
+            <th>actions</th>
+        </tr>
+        <?php foreach ($materiels as $m): ?>
+            <tr>
+                <td><?php echo $m['numSerie']; ?></td>
+                <td><?php echo $m['libelleTypeMateriel']; ?></td>
+                <td><?php echo $m['libelleMarque']; ?></td>
+                <td><?php echo $m['dateAchat']; ?></td>
+                <td><?php echo $m['prix']; ?></td>
+                <td><?php echo $m['caracteristique']; ?></td>
+                <td><?php echo $m['caracteristique']; ?></td>
+                <td><a href="../../controller/modifierMaterielController.php?id=<?= $m['idMateriel'] ?>">Modifier</a>
+                <a href="../../controller/supprimerMaterielController.php?id=<?= $m['idMateriel']?>" onclick="return confirm('Supprimer ce materiel ?')">Supprimer</a></td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
 </div>
 
 </body>
