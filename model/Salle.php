@@ -1,6 +1,6 @@
 <?php 
 
-class Marque{
+class Salle{
     public $pdo;
 public function __construct()
 {
@@ -13,9 +13,10 @@ public function __construct()
     }
 }
 
-public function getMarques(){
-    $req=$this->pdo->prepare('select idMarque,libelleMarque from marques');
+public function getSalles(){
+    $req=$this->pdo->prepare('select idSalle,salles.idDepartement idDep,nomDepartement,numSalle from salles join departements on salles.idDepartement=departements.idDepartement');
     $req->execute();
     return $req->fetchAll(PDO::FETCH_ASSOC);
 }
+
 }

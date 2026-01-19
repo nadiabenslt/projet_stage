@@ -1,6 +1,6 @@
 <?php 
 
-class Marque{
+class Affectation{
     public $pdo;
 public function __construct()
 {
@@ -13,9 +13,9 @@ public function __construct()
     }
 }
 
-public function getMarques(){
-    $req=$this->pdo->prepare('select idMarque,libelleMarque from marques');
-    $req->execute();
-    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+public function affecterMateriel($data){
+    $req=$this->pdo->prepare('insert into affectations (dateAffectation,idMateriel,idSalle) values (?,?, ?)');
+    return $req->execute([$data['dateAffectation'],$data['idMateriel'],$data['salle']]);
 }
 }

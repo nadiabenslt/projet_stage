@@ -17,5 +17,8 @@ class Persoone{
             $stmt->execute(([$email,$pwd]));
             return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
+    public function ajouterPersonne($data){
+        $req=$this->pdo->prepare('insert into personnes(nomPersonne, prenomPersonne, dateNaissance, lieuNaissance, telephone, email, mot_de_passe, role, idDepartement, idSalle) values ?,?,?,?,?,?,?,?,?,?');
+        return $req->execute([$data['nom'],$data['prenom'],$data['dateNaissance'],$data['lieuNaissance'],$data['telephone'],$data['email'],$data['pwd'],$data['role'],$data['dep'],$data['salle']]);
+    }  
 }

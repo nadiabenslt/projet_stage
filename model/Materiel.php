@@ -34,4 +34,9 @@ public function getMaterielById($idMateriel){
     $req->execute([$idMateriel]);
     return $req->fetch(PDO::FETCH_ASSOC);
 }
+public function getLocationMateriel($idMateriel){
+    $req=$this->pdo->prepare('select numSerie,a.idSalle,d.nom,d.numEtage from materiels join typesmateriels on materiels.idTypeMateriel=typesmateriels.idTypeMateriel join affectations a on materiels.idMateriel=a.idMateriel join salles on a.idSalle=salles.idSalle join departements d on salles.idDepartement=d.idDepartement WHERE materiels.idMateriel=?');
+    $req->execute([$idMateriel]);
+    return $req->fetch(PDO::FETCH_ASSOC);
+}
 }

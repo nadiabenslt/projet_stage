@@ -27,7 +27,7 @@ if (
         <li><a href="./index.php" class="active">Accueil</a></li>
         <li><a href="./newMateriel.php"> Ajouter Materiel</a></li>
          <li><a href="./materiels.php"> Materiels</a></li>
-        <li><a href="./interventions.php">gérer les interventions</a></li>
+        <li><a href="./ajouterEmploye.php">ajouter employé</a></li>
         <li><a href="./panne.php">Déclarer une panne</a></li>
         <li><a href="../../controller/logoutController.php" class="logout">🚪 Déconnexion</a></li>
     </ul>

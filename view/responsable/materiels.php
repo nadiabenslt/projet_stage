@@ -56,7 +56,7 @@ require_once __DIR__.'/../../controller/getMaterielsController.php';
                 <td><?php echo $m['dateAchat']; ?></td>
                 <td><?php echo $m['prix']; ?></td>
                 <td><?php echo $m['caracteristique']; ?></td>
-                <td><?php echo $m['caracteristique']; ?></td>
+                <td><a href="../../controller/affectationController.php?id=<?= $m['idMateriel'] ?>">affecter</a></td>
                 <td><a href="../../controller/modifierMaterielController.php?id=<?= $m['idMateriel'] ?>">Modifier</a>
                 <a href="../../controller/supprimerMaterielController.php?id=<?= $m['idMateriel']?>" onclick="return confirm('Supprimer ce materiel ?')">Supprimer</a></td>
             </tr>
